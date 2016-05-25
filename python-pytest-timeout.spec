@@ -1,14 +1,12 @@
+#
 # Conditional build:
-# %%bcond_without	doc	# don't build doc
 %bcond_without	tests	# do not perform "make test"
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
-# NOTE: 'module' should match the python import path, not the egg name
 %define 	module	pytest-timeout
 Summary:	Pytest plugin which will terminate tests after a certain timeout
 Summary(pl.UTF-8):	Wtyczka Pytest wymuszająca zakończenie testów po przekroczeniu limitu czasu
-# Name must match the python module/package name (as on pypi or in 'import' statement)
 Name:		python-%{module}
 Version:	1.0.0
 Release:	1
@@ -103,10 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README
-%{py_sitescriptdir}/pytest_timeout.py*
-%if "%{py_ver}" > "2.4"
+%{py_sitescriptdir}/pytest_timeout.py[co]
 %{py_sitescriptdir}/pytest_timeout-%{version}-py*.egg-info
-%endif
 %endif
 
 %if %{with python3}
