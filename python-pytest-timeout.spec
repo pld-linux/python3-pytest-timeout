@@ -9,7 +9,7 @@ Summary:	Pytest plugin which will terminate tests after a certain timeout
 Summary(pl.UTF-8):	Wtyczka Pytest wymuszająca zakończenie testów po przekroczeniu limitu czasu
 Name:		python-%{module}
 Version:	1.0.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/cf/92/ab29b9baa54d47dfd50e43be35577de9af4e7ebf27d29f546ddeb6c3b6f5/pytest-timeout-%{version}.tar.gz
