@@ -8,32 +8,33 @@
 Summary:	py.test plugin to abort hanging tests
 Summary(pl.UTF-8):	Wtyczka py.test do przerywania zawieszonych testów
 Name:		python-%{module}
-Version:	1.2.0
-Release:	3
+Version:	1.3.4
+Release:	1
 License:	MIT
 Group:		Libraries/Python
-Source0:	https://pypi.python.org/packages/cc/b7/b2a61365ea6b6d2e8881360ae7ed8dad0327ad2df89f2f0be4a02304deb2/pytest-timeout-%{version}.tar.gz
-# Source0-md5:	83607d91aa163562c7ee835da57d061d
-URL:		http://bitbucket.org/pytest-dev/pytest-timeout/
+#Source0Download: https://pypi.org/simple/pytest-timeout/
+Source0:	https://files.pythonhosted.org/packages/source/p/pytest-timeout/pytest-timeout-%{version}.tar.gz
+# Source0-md5:	1594762ae77ed7c6c2727aa8b4aa8bfb
+URL:		https://github.com/pytest-dev/pytest-timeout
 %if %{with python2}
-BuildRequires:	python-modules >= 1:2.6
+BuildRequires:	python-modules >= 1:2.7
 BuildRequires:	python-setuptools
 %if %{with tests}
 BuildRequires:	python-pexpect
-BuildRequires:	python-pytest >= 2.8.0
+BuildRequires:	python-pytest >= 3.6.0
 %endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-modules >= 1:3.3
+BuildRequires:	python3-modules >= 1:3.5
 BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-pexpect
-BuildRequires:	python3-pytest >= 2.8.0
+BuildRequires:	python3-pytest >= 3.6.0
 %endif
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	python-modules >= 1:2.6
+Requires:	python-modules >= 1:2.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -53,7 +54,7 @@ integracji lub jeśli nie wiemy, dlaczego testy się zawieszają.
 Summary:	py.test plugin to abort hanging tests
 Summary(pl.UTF-8):	Wtyczka py.test do przerywania zawieszonych testów
 Group:		Libraries/Python
-Requires:	python3-modules >= 1:3.3
+Requires:	python3-modules >= 1:3.5
 
 %description -n python3-%{module}
 This is a plugin which will terminate tests after a certain timeout.
@@ -74,13 +75,19 @@ integracji lub jeśli nie wiemy, dlaczego testy się zawieszają.
 %if %{with python2}
 %py_build
 
-%{?with_tests:PYTHONPATH=$(pwd) %{__python} -m pytest}
+%if %{with tests}
+PYTHONPATH=$(pwd) \
+%{__python} -m pytest
+%endif
 %endif
 
 %if %{with python3}
 %py3_build
 
-%{?with_tests:PYTHONPATH=$(pwd) %{__python3} -m pytest}
+%if %{with tests}
+PYTHONPATH=$(pwd) \
+%{__python3} -m pytest
+%endif
 %endif
 
 %install
@@ -88,6 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with python2}
 %py_install
+
 %py_postclean
 %endif
 
@@ -101,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README
+%doc LICENSE README.rst
 %{py_sitescriptdir}/pytest_timeout.py[co]
 %{py_sitescriptdir}/pytest_timeout-%{version}-py*.egg-info
 %endif
@@ -109,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-%{module}
 %defattr(644,root,root,755)
-%doc LICENSE README
+%doc LICENSE README.rst
 %{py3_sitescriptdir}/pytest_timeout.py
 %{py3_sitescriptdir}/__pycache__/pytest_timeout.cpython-*.py[co]
 %{py3_sitescriptdir}/pytest_timeout-%{version}-py*.egg-info
