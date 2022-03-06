@@ -8,7 +8,7 @@
 Summary:	py.test plugin to abort hanging tests
 Summary(pl.UTF-8):	Wtyczka py.test do przerywania zawieszonych testów
 Name:		python-%{module}
-# keep 1.x here for python3/pytest<5 support
+# keep 1.x here for python2/pytest<5 support
 Version:	1.4.2
 Release:	1
 License:	MIT
