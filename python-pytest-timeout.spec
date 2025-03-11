@@ -10,7 +10,7 @@ Summary(pl.UTF-8):	Wtyczka py.test do przerywania zawieszonych testów
 Name:		python-%{module}
 # keep 1.x here for python2/pytest<5 support
 Version:	1.4.2
-Release:	6
+Release:	7
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pytest-timeout/
