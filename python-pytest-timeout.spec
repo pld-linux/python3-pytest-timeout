@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	tests	# py.test tests [use ptys, so not on builders]
+%bcond_with	tests	# pytest tests [use ptys, so not on builders]
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
@@ -23,6 +23,7 @@ BuildRequires:	python-setuptools
 %if %{with tests}
 BuildRequires:	python-pexpect
 BuildRequires:	python-pytest >= 3.6.0
+BuildRequires:	python-pytest-cov
 %endif
 %endif
 %if %{with python3}
@@ -31,6 +32,7 @@ BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-pexpect
 BuildRequires:	python3-pytest >= 3.6.0
+BuildRequires:	python3-pytest-cov
 %endif
 %endif
 BuildRequires:	rpm-pythonprov
@@ -77,6 +79,8 @@ integracji lub jeśli nie wiemy, dlaczego testy się zawieszają.
 %py_build
 
 %if %{with tests}
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS=pytest_cov.plugin,pytest_timeout \
 PYTHONPATH=$(pwd) \
 %{__python} -m pytest
 %endif
@@ -86,6 +90,8 @@ PYTHONPATH=$(pwd) \
 %py3_build
 
 %if %{with tests}
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS=pytest_cov.plugin,pytest_timeout \
 PYTHONPATH=$(pwd) \
 %{__python3} -m pytest
 %endif
